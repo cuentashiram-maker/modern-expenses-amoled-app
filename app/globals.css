@@ -338,3 +338,48 @@ form .input, form select, form textarea, form input[type="file"]{
 
 /* 10) Previene “aplastamiento” del contenido en pantalla muy estrecha */
 .card, .chart-block, .table-wrap{ min-width: 0; }
+
+/* ----- Budget summary legible (1 por línea) ----- */
+.budget-list{
+  display: grid;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.stat-row{
+  display: grid;
+  grid-template-columns: 1.1fr auto; /* etiqueta izquierda, valor derecha */
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: #080808; /* sutil sobre AMOLED */
+}
+
+.stat-label{
+  font-size: 16.5px;
+  color: var(--muted);
+}
+
+.stat-value{
+  font-size: 19px;
+  font-weight: 800;
+  letter-spacing: .2px;
+}
+
+.stat-badge{
+  font-size: 19px;
+  font-weight: 800;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+}
+.stat-badge.ok{
+  background: #198754; color: #000; /* success */
+}
+.stat-badge.warn{
+  background: #ffc107; color: #000; /* warning */
+}
+
+/* En pantallas anchas, mantenemos la misma presentación (claro, solo una columna) */

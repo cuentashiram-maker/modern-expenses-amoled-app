@@ -41,23 +41,28 @@ export default function BudgetSummary(){
 
   return (
     <div className="card">
-      <div className="h2">Resumen quincena</div>
-      <div className="grid" style={{gridTemplateColumns:'1fr 1fr', gap:12}}>
-        <div>
-          <div className="small">Periodo</div>
-          <div>{y}-{String(m).padStart(2,'0')} / Q{q}</div>
+      <div className="h1">Resumen quincena</div>
+      <div className="budget-list">
+        <div className="stat-row">
+          <span className="stat-label">Periodo</span>
+          <span className="stat-value">{y}-{String(m).padStart(2,'0')} / Q{q}</span>
         </div>
-        <div>
-          <div className="small">Presupuesto</div>
-          <div>${(budget?.amount||0).toFixed(2)}</div>
+
+        <div className="stat-row">
+          <span className="stat-label">Presupuesto</span>
+          <span className="stat-value">${(budget?.amount||0).toFixed(2)}</span>
         </div>
-        <div>
-          <div className="small">Gastado</div>
-          <div>${spent.toFixed(2)}</div>
+
+        <div className="stat-row">
+          <span className="stat-label">Gastado</span>
+          <span className="stat-value">${spent.toFixed(2)}</span>
         </div>
-        <div>
-          <div className="small">Restante</div>
-          <div className={`badge ${remaining>=0?'badge-paid':'badge-pending'}`}>${remaining.toFixed(2)}</div>
+
+        <div className="stat-row">
+          <span className="stat-label">Restante</span>
+          <span className={`stat-badge ${remaining>=0?'ok':'warn'}`}>
+            ${remaining.toFixed(2)}
+          </span>
         </div>
       </div>
       <div style={{marginTop:12}} className="grid" >
