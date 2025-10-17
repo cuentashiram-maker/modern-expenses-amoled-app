@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabaseClient';
 
-export default function ExpenseTable() {
+export default function ExpenseTable({ refreshKey = 0 }) {
   const [items, setItems] = useState([]);
   const [total, setTotal] = useState(0);
 
@@ -20,7 +20,7 @@ export default function ExpenseTable() {
     }
   };
 
-  useEffect(()=>{ load(); },[]);
+  useEffect(()=>{ load(); },[refreshKey]);
 
   const togglePaid = async (id, current) => {
     await supabase.from('expenses').update({ paid: !current }).eq('id', id);

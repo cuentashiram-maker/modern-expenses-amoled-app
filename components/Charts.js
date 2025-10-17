@@ -26,7 +26,7 @@ const withA = (hex, a=0.85) => {
 const axisColor = '#e5e7eb';          // texto ejes/leyenda
 const gridColor = 'rgba(229,231,235,.12)'; // rejilla sutil
 
-export default function Charts() {
+export default function Charts({ refreshKey = 0 }) {
   const [byMonth, setByMonth] = useState({ labels: [], data: [] });
   const [byCat, setByCat] = useState({ labels: [], data: [] });
 
@@ -38,7 +38,7 @@ export default function Charts() {
     if (cData) setByCat({ labels: cData.map(r => r.category), data: cData.map(r => Number(r.total)) });
   };
 
-  useEffect(() => { load(); }, []);
+  useEffect(() => { load(); }, [refreshKey]);
 
   const barOptions = {
     responsive: true,
