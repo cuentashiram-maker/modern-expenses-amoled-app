@@ -38,7 +38,7 @@ export default function ExpenseTable() {
         <h3 style={{margin:0}}>Transacciones</h3>
         <div>Total: ${total.toFixed(2)}</div>
       </div>
-      <div style={{overflowX:'auto'}}>
+      <div >
         <table className="table">
           <thead>
             <tr>

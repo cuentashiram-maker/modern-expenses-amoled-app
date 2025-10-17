@@ -12,30 +12,38 @@ export default function Dashboard() {
 
   useEffect(()=>{
     supabase.auth.getUser().then(({ data }) => { setUser(data.user); setLoading(false); });
-    const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => setUser(session?.user ?? null));
-    return () => { sub.subscription.unsubscribe(); }
+    const { data: sub } = supabase.auth.onAuthStateChange((_e, s) => setUser(s?.user ?? null));
+    return () => { sub.subscription.unsubscribe(); };
   },[]);
 
-  if (loading) return <div>Cargando...</div>;
+  if (loading) return <div>Cargando…</div>;
   if (!user) return (
-    <div className="card">
+    <div className="card" style={{textAlign:'center'}}>
       <p>Necesitas iniciar sesión.</p>
       <AuthButtons />
     </div>
   );
 
   return (
-    <div className="grid grid-2">
-      <div className="card">
+    <div className="dashboard-grid">
+      {/* Form siempre arriba en móvil */}
+      <section className="card">
         <div className="h2">Agregar movimiento</div>
         <ExpenseForm onSaved={()=>{}} />
-      </div>
-      <div className="card chart-card">
+      </section>
+
+      {/* Gráficas en su propio layout responsive */}
+      <section className="chart-block full">
         <Charts />
-      </div>
-      <div className="card" style={{gridColumn:'1 / -1'}}>
-        <ExpenseTable />
-      </div>
+      </section>
+
+      {/* Tabla con wrapper de scroll */}
+      <section className="card full">
+        <div className="h2" style={{marginBottom:8}}>Transacciones</div>
+        <div className="table-wrap">
+          <ExpenseTable />
+        </div>
+      </section>
     </div>
   );
 }
