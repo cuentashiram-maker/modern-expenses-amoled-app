@@ -186,3 +186,53 @@ a{color:#8ab4ff;text-decoration:none}
   box-shadow: 0 0 0 3px rgba(13,110,253,.25);
   background-color: #0a0a0a;
 }
+/* ----- Toasts AMOLED ----- */
+.toast-container{
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  display: grid;
+  gap: 8px;
+  z-index: 9999;
+  max-width: calc(100vw - 24px);
+}
+
+.toast{
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: #0a0a0a;
+  color: var(--text);
+  box-shadow: 0 8px 24px rgba(0,0,0,.6);
+  font-weight: 700;
+}
+.toast.success{ border-color: #198754; box-shadow: 0 0 0 2px rgba(25,135,84,.35); }
+.toast.error{   border-color: #dc3545; box-shadow: 0 0 0 2px rgba(220,53,69,.35); }
+.toast.warn{    border-color: #ffc107; box-shadow: 0 0 0 2px rgba(255,193,7,.35); color:#000; background:#1a1a1a; }
+
+.toast-x{
+  appearance: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1;
+  color: inherit;
+  padding: 2px 4px;
+  border-radius: 8px;
+}
+.toast-x:hover{ opacity: .8; }
+
+/* Mobile: centrar toasts */
+@media (max-width: 480px){
+  .toast-container{
+    right: 50%;
+    transform: translateX(50%);
+    bottom: 12px;
+  }
+  .toast{ width: min(92vw, 440px); }
+}

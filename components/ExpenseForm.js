@@ -1,8 +1,11 @@
 'use client';
 import { useState } from 'react';
 import { supabase } from '@/lib/supabaseClient';
+import { useToast } from '@/components/ToastProvider';  // 👈 nuevo
+
 
 export default function ExpenseForm({ onSaved }) {
+  const toast = useToast(); // 👈 nuevo
   const [whenDate, setWhenDate] = useState(()=> new Date().toISOString().slice(0,10));
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState('');
@@ -39,9 +42,12 @@ export default function ExpenseForm({ onSaved }) {
       receipt_url
     });
     setBusy(false);
-    if (error) alert(error.message);
+    if (error){
+      toast.push('Error al guardar: ' + error.message, 'error'); // 👈
+    }
     else {
       setDescription(''); setCategory(''); setAmount(''); setPaid(false); setFile(null);
+      toast.push('Movimiento guardado ✓', 'success'); // 👈
       onSaved && onSaved();
     }
   };
