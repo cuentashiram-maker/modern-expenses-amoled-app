@@ -67,7 +67,7 @@ export default function ExpenseForm({ onSaved }) {
         <input className="input" type="file" accept="image/*" capture="environment" onChange={e=>setFile(e.target.files?.[0] || null)}/>
         <div className="small">Se sube a Supabase Storage. Más adelante conectamos AI para leer monto/categoría automáticamente.</div>
       </div>
-      <button disabled={busy} className="btn btn-success">{busy?'Guardando...':'Guardar'}</button>
+      <button disabled={busy} className="btn btn-success btn-block">{busy?'Guardando...':'Guardar'}</button>
     </form>
   );
 }
