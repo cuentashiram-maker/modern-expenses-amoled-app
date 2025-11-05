@@ -383,3 +383,99 @@ form .input, form select, form textarea, form input[type="file"]{
 }
 
 /* En pantallas anchas, mantenemos la misma presentación (claro, solo una columna) */
+
+/* ===== HOME MINIMAL ===== */
+.home-minimal{
+  min-height: calc(100vh - 64px); /* deja espacio para el navbar si lo hay */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 72px;          /* padding superior "decente" */
+  padding-bottom: 40px;
+  text-align: center;
+  background: #000000;
+}
+
+.home-logo{
+  margin-bottom: 24px;
+}
+.home-logo img{
+  display:block;
+  width: 160px;
+  height: 160px;
+}
+
+/* Texto "Bienvenido" grande y claro */
+.home-title{
+  font-size: 30px;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0 0 20px;
+}
+
+/* Botón verde Entrar con Google */
+.btn-google{
+  padding: 14px 30px;
+  border-radius: 999px;
+  border: none;
+  background: #96D540;    /* tu verde */
+  color: #000000;
+  font-size: 18px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 10px 30px rgba(150,213,64,0.35);
+  transition: transform .12s ease, box-shadow .12s ease, filter .12s ease;
+}
+.btn-google:hover{
+  filter: brightness(1.05);
+  box-shadow: 0 14px 40px rgba(150,213,64,0.45);
+}
+.btn-google:active{
+  transform: translateY(1px) scale(.98);
+}
+
+/* Estado cuando ya hay sesión */
+.home-logged{
+  margin-top: 20px;
+  font-size: 14.5px;
+  color: #cbd5f5;
+}
+.home-logged-actions{
+  margin-top: 10px;
+  display:flex;
+  gap: 12px;
+  justify-content:center;
+  flex-wrap: wrap;
+}
+.link-dashboard{
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  text-decoration: none;
+  color: #e5e7eb;
+  font-weight: 600;
+}
+.link-logout{
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: none;
+  background: transparent;
+  color: #9ca3af;
+  font-weight: 600;
+  cursor:pointer;
+}
+
+/* Mobile fine-tune */
+@media (max-width: 480px){
+  .home-minimal{
+    padding-top: 64px;
+  }
+  .home-title{
+    font-size: 26px;
+  }
+  .btn-google{
+    width: 100%;
+    max-width: 260px;
+  }
+}
