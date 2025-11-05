@@ -2,19 +2,22 @@
 
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabaseClient';
-import Link from 'next/link';
 
 export default function Home() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
   useEffect(() => {
+    // obtener usuario actual
     supabase.auth.getUser().then(({ data }) => {
       setUser(data.user);
       setLoading(false);
     });
 
+    // escuchar cambios de sesión
     const { data: sub } = supabase.auth.onAuthStateChange((_e, session) => {
       setUser(session?.user ?? null);
     });
@@ -24,6 +27,13 @@ export default function Home() {
     };
   }, []);
 
+  // si ya hay usuario, mandamos directo al dashboard
+  useEffect(() => {
+    if (!loading && user) {
+      router.replace('/dashboard');
+    }
+  }, [loading, user, router]);
+
   const handleLogin = async () => {
     await supabase.auth.signInWithOAuth({
       provider: 'google',
@@ -31,10 +41,6 @@ export default function Home() {
         redirectTo: `${window.location.origin}/dashboard`
       }
     });
-  };
-
-  const handleLogout = async () => {
-    await supabase.auth.signOut();
   };
 
   return (
@@ -51,26 +57,17 @@ export default function Home() {
 
       <h1 className="home-title">Bienvenido</h1>
 
-      {/* Si NO hay sesión → botón verde grande */}
-      {!loading && !user && (
+      {/* Solo mostramos el botón mientras no sabemos, o si no hay usuario */}
+      {(!loading && !user) && (
         <button className="btn-google" onClick={handleLogin}>
           Entrar con Google
         </button>
       )}
 
-      {/* Si ya hay sesión → pequeño mensaje + link al dashboard */}
-      {!loading && user && (
-        <div className="home-logged">
-          <p>Ya iniciaste sesión como <strong>{user.email}</strong></p>
-          <div className="home-logged-actions">
-            <Link href="/dashboard" className="link-dashboard">
-              Ir al dashboard
-            </Link>
-            <button className="link-logout" onClick={handleLogout}>
-              Salir
-            </button>
-          </div>
-        </div>
+      {loading && (
+        <p style={{ marginTop: 16, color: '#9ca3af', fontSize: 14 }}>
+          Cargando…
+        </p>
       )}
     </main>
   );
