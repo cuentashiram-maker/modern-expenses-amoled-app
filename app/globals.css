@@ -124,7 +124,10 @@ a{color:#8ab4ff;text-decoration:none}
 }
 
 @media (min-width: 980px){
-  .container{ padding: 16px; }
+  .container{ 
+        padding-top: 96px;
+    padding-bottom: 80px;
+  }
 }
 
 @media (max-width: 480px){
